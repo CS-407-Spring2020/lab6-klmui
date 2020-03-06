@@ -1,13 +1,35 @@
 package com.example.android.lab_6;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity extends FragmentActivity {
+
+    // Bascom Hall
+    private final LatLng mDestinationLatLng = new LatLng(43.0752817, -89.4063554);
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+
+        // googleMap is what we get back when the map is done loading
+        mapFragment.getMapAsync(googleMap -> {
+            mMap = googleMap;
+            // Code to display marker
+            googleMap.addMarker(new MarkerOptions()
+                .position(mDestinationLatLng)
+                .title("Destination"));
+        });
     }
+
 }
